@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "compile": "elm-make src/water.elm --output main.js",
+    "compile": "elm-make src/water.elm --output main.js --debug",
     "watch": "watch 'npm run compile' src/"
   },
   "repository": {
