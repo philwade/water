@@ -8363,62 +8363,118 @@ var _user$project$Main$displayCount = function (model) {
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p0 = msg;
-		return {
-			ctor: '_Tuple2',
-			_0: _elm_lang$core$Native_Utils.update(
-				model,
-				{count: model.count + 1}),
-			_1: _elm_lang$core$Platform_Cmd$none
-		};
+		switch (_p0.ctor) {
+			case 'Increment':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{count: model.count + 1}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'ToggleEditGoal':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{editingGoal: !model.editingGoal}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{goal: _p0._0}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+		}
 	});
 var _user$project$Main$init = {
 	ctor: '_Tuple2',
-	_0: {count: 0, goal: 8},
+	_0: {count: 0, goal: 8, editingGoal: false},
 	_1: _elm_lang$core$Platform_Cmd$none
 };
-var _user$project$Main$Model = F2(
-	function (a, b) {
-		return {count: a, goal: b};
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {count: a, goal: b, editingGoal: c};
 	});
+var _user$project$Main$ChangeGoal = function (a) {
+	return {ctor: 'ChangeGoal', _0: a};
+};
+var _user$project$Main$ToggleEditGoal = {ctor: 'ToggleEditGoal'};
 var _user$project$Main$Increment = {ctor: 'Increment'};
 var _user$project$Main$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
+		{ctor: '[]'},
 		{
 			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('display'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: _user$project$Main$displayCount(model),
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('display'),
+					_1: {ctor: '[]'}
+				},
+				{
+					ctor: '::',
+					_0: _user$project$Main$displayCount(model),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$button,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('increment'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Increment),
+									_1: {ctor: '[]'}
+								}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('+'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: _user$project$Main$progressDisplay(model),
+							_1: {
+								ctor: '::',
+								_0: _user$project$Main$encouragementDisplay(model),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				}),
 			_1: {
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$button,
+					_elm_lang$html$Html$div,
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('increment'),
-						_1: {
-							ctor: '::',
-							_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$Increment),
-							_1: {ctor: '[]'}
-						}
+						_0: _elm_lang$html$Html_Attributes$class('modal'),
+						_1: {ctor: '[]'}
 					},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html$text('+'),
+						_0: A2(
+							_elm_lang$html$Html$div,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('modal-content'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('modal'),
+								_1: {ctor: '[]'}
+							}),
 						_1: {ctor: '[]'}
 					}),
-				_1: {
-					ctor: '::',
-					_0: _user$project$Main$progressDisplay(model),
-					_1: {
-						ctor: '::',
-						_0: _user$project$Main$encouragementDisplay(model),
-						_1: {ctor: '[]'}
-					}
-				}
+				_1: {ctor: '[]'}
 			}
 		});
 };

@@ -1,0 +1,23 @@
+{
+  "name": "water",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "compile": "elm-make src/water.elm --output main.js",
+    "watch": "watch 'npm run compile' src/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/philwade/water.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/philwade/water/issues"
+  },
+  "homepage": "https://github.com/philwade/water#readme",
+  "dependencies": {
+    "watch": "^1.0.2"
+  }
+}

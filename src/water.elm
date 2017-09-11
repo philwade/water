@@ -4,25 +4,29 @@ import Html.Attributes exposing (class, attribute)
 
 main = Html.program { init = init, view = view, update = update, subscriptions = subscriptions }
 
-type alias Model = { count: Int, goal: Int }
+type alias Model = { count: Int, goal: Int, editingGoal: Bool }
 
 init : (Model, Cmd Msg)
-init = ({ count = 0, goal = 8 }, Cmd.none)
+init = ({ count = 0, goal = 8, editingGoal = False }, Cmd.none)
 
-type Msg = Increment
+type Msg = Increment | ToggleEditGoal | ChangeGoal Int
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         Increment -> ({ model | count = model.count + 1 }, Cmd.none)
+        ToggleEditGoal -> ({ model | editingGoal = not model.editingGoal }, Cmd.none)
+        ChangeGoal newGoal -> ({ model | goal = newGoal }, Cmd.none)
 
 
 view : Model -> Html Msg
 view model =
-    div [ class "display" ] [ displayCount model
-           , button [ class "increment", onClick Increment ] [ text "+" ]
-           , progressDisplay model
-           , encouragementDisplay model
+    div [] [ div [ class "display" ] [ displayCount model
+                                     , button [ class "increment", onClick Increment ] [ text "+" ]
+                                     , progressDisplay model
+                                     , encouragementDisplay model
+                                     ]
+           , div [ class "modal" ] [ div [ class "modal-content" ] [ text "modal" ] ]
            ]
 
 displayCount : Model -> Html Msg
