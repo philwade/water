@@ -1,6 +1,6 @@
 import Html exposing (Html, div, text, span, button, img, input, a)
 import Html.Events exposing (onClick, onInput)
-import Html.Attributes exposing (class, classList, attribute, placeholder)
+import Html.Attributes exposing (class, classList, attribute, value)
 
 main = Html.program { init = init, view = view, update = update, subscriptions = subscriptions }
 
@@ -9,14 +9,18 @@ type alias Model = { count: Int, goal: Int, editingGoal: Bool }
 init : (Model, Cmd Msg)
 init = ({ count = 0, goal = 8, editingGoal = False }, Cmd.none)
 
-type Msg = Increment | ToggleEditGoal | ChangeGoal String
+type Msg = Increment | OpenEditGoal | CloseEditGoal | ChangeGoal String
 
 update : Msg -> Model -> (Model, Cmd Msg)
 update msg model =
     case msg of
         Increment -> ({ model | count = model.count + 1 }, Cmd.none)
-        ToggleEditGoal -> ({ model | editingGoal = not model.editingGoal }, Cmd.none)
-        ChangeGoal newGoal -> (model, Cmd.none)
+        CloseEditGoal -> ({ model | editingGoal = False }, Cmd.none)
+        OpenEditGoal -> ({ model | editingGoal = True }, Cmd.none)
+        ChangeGoal newGoal ->
+            case String.toInt newGoal of
+                Ok goal -> ({ model | goal = goal }, Cmd.none)
+                Err _ -> (model, Cmd.none)
 
 
 view : Model -> Html Msg
@@ -25,7 +29,7 @@ view model =
                                      , button [ class "increment", onClick Increment ] [ text "+" ]
                                      , progressDisplay model
                                      , encouragementDisplay model
-                                     , span [ class "toggle-modal" ] [ a [ onClick ToggleEditGoal ] [ text "change goal" ] ]
+                                     , span [ class "toggle-modal" ] [ a [ onClick OpenEditGoal ] [ text "change goal" ] ]
                                      ]
            , displayModal model
            ]
@@ -36,12 +40,12 @@ displayModal model =
             [ ("modal", True)
             , ("hidden", not model.editingGoal)
             ]
-        , onClick ToggleEditGoal
         ]
         [ div
             [ class "modal-content" ]
             [ text "The standard recommendation for water is 64 oz or 1800 ml. Akaeight 8 oz glasses. Adjust your goal according to the size of your cup and goals!"
-            , input [ placeholder (toString model.goal), onInput ChangeGoal ] [ ]
+            , span [ class "close-modal" ] [ a [ onClick CloseEditGoal ] [ text "X" ] ]
+            , input [ value (toString model.goal), onInput ChangeGoal ] [ ]
             ]
         ]
 

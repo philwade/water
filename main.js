@@ -12528,16 +12528,35 @@ var _user$project$Main$update = F2(
 						{count: model.count + 1}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
-			case 'ToggleEditGoal':
+			case 'CloseEditGoal':
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{editingGoal: !model.editingGoal}),
+						{editingGoal: false}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'OpenEditGoal':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{editingGoal: true}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			default:
-				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				var _p1 = _elm_lang$core$String$toInt(_p0._0);
+				if (_p1.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{goal: _p1._0}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				}
 		}
 	});
 var _user$project$Main$init = {
@@ -12552,7 +12571,7 @@ var _user$project$Main$Model = F3(
 var _user$project$Main$ChangeGoal = function (a) {
 	return {ctor: 'ChangeGoal', _0: a};
 };
-var _user$project$Main$ToggleEditGoal = {ctor: 'ToggleEditGoal'};
+var _user$project$Main$CloseEditGoal = {ctor: 'CloseEditGoal'};
 var _user$project$Main$displayModal = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -12568,11 +12587,7 @@ var _user$project$Main$displayModal = function (model) {
 						_1: {ctor: '[]'}
 					}
 				}),
-			_1: {
-				ctor: '::',
-				_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$ToggleEditGoal),
-				_1: {ctor: '[]'}
-			}
+			_1: {ctor: '[]'}
 		},
 		{
 			ctor: '::',
@@ -12589,24 +12604,51 @@ var _user$project$Main$displayModal = function (model) {
 					_1: {
 						ctor: '::',
 						_0: A2(
-							_elm_lang$html$Html$input,
+							_elm_lang$html$Html$span,
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$placeholder(
-									_elm_lang$core$Basics$toString(model.goal)),
-								_1: {
-									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$ChangeGoal),
-									_1: {ctor: '[]'}
-								}
+								_0: _elm_lang$html$Html_Attributes$class('close-modal'),
+								_1: {ctor: '[]'}
 							},
-							{ctor: '[]'}),
-						_1: {ctor: '[]'}
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$a,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$CloseEditGoal),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('X'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$input,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$value(
+										_elm_lang$core$Basics$toString(model.goal)),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$ChangeGoal),
+										_1: {ctor: '[]'}
+									}
+								},
+								{ctor: '[]'}),
+							_1: {ctor: '[]'}
+						}
 					}
 				}),
 			_1: {ctor: '[]'}
 		});
 };
+var _user$project$Main$OpenEditGoal = {ctor: 'OpenEditGoal'};
 var _user$project$Main$Increment = {ctor: 'Increment'};
 var _user$project$Main$view = function (model) {
 	return A2(
@@ -12663,7 +12705,7 @@ var _user$project$Main$view = function (model) {
 												_elm_lang$html$Html$a,
 												{
 													ctor: '::',
-													_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$ToggleEditGoal),
+													_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$OpenEditGoal),
 													_1: {ctor: '[]'}
 												},
 												{
@@ -12692,7 +12734,7 @@ var _user$project$Main$main = _elm_lang$html$Html$program(
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _user$project$Main$main !== 'undefined') {
-    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Main.Msg":{"args":[],"tags":{"ChangeGoal":["String"],"ToggleEditGoal":[],"Increment":[]}}},"aliases":{},"message":"Main.Msg"},"versions":{"elm":"0.18.0"}});
+    _user$project$Main$main(Elm['Main'], 'Main', {"types":{"unions":{"Main.Msg":{"args":[],"tags":{"CloseEditGoal":[],"OpenEditGoal":[],"ChangeGoal":["String"],"Increment":[]}}},"aliases":{},"message":"Main.Msg"},"versions":{"elm":"0.18.0"}});
 }
 
 if (typeof define === "function" && define['amd'])
