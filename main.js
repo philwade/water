@@ -12600,39 +12600,39 @@ var _user$project$Main$displayModal = function (model) {
 				},
 				{
 					ctor: '::',
-					_0: _elm_lang$html$Html$text('The standard recommendation for water is 64 oz or 1800 ml. Akaeight 8 oz glasses. Adjust your goal according to the size of your cup and goals!'),
+					_0: A2(
+						_elm_lang$html$Html$span,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('close-modal'),
+							_1: {ctor: '[]'}
+						},
+						{
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$a,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$CloseEditGoal),
+									_1: {ctor: '[]'}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('X'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}),
 					_1: {
 						ctor: '::',
-						_0: A2(
-							_elm_lang$html$Html$span,
-							{
-								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('close-modal'),
-								_1: {ctor: '[]'}
-							},
-							{
-								ctor: '::',
-								_0: A2(
-									_elm_lang$html$Html$a,
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$CloseEditGoal),
-										_1: {ctor: '[]'}
-									},
-									{
-										ctor: '::',
-										_0: _elm_lang$html$Html$text('X'),
-										_1: {ctor: '[]'}
-									}),
-								_1: {ctor: '[]'}
-							}),
+						_0: _elm_lang$html$Html$text('The standard recommendation for water is 64 oz or 1800 ml. Aka eight 8 oz glasses. Adjust your goal according to the size of your cup and goals!'),
 						_1: {
 							ctor: '::',
 							_0: A2(
 								_elm_lang$html$Html$input,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Attributes$value(
+									_0: _elm_lang$html$Html_Attributes$placeholder(
 										_elm_lang$core$Basics$toString(model.goal)),
 									_1: {
 										ctor: '::',
@@ -12641,7 +12641,26 @@ var _user$project$Main$displayModal = function (model) {
 									}
 								},
 								{ctor: '[]'}),
-							_1: {ctor: '[]'}
+							_1: {
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$button,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('ok'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$CloseEditGoal),
+											_1: {ctor: '[]'}
+										}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('ok'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}
 						}
 					}
 				}),
@@ -12681,7 +12700,7 @@ var _user$project$Main$view = function (model) {
 							},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html$text('+'),
+								_0: _elm_lang$html$Html$text('+1'),
 								_1: {ctor: '[]'}
 							}),
 						_1: {

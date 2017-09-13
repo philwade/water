@@ -1,6 +1,6 @@
 import Html exposing (Html, div, text, span, button, img, input, a)
 import Html.Events exposing (onClick, onInput)
-import Html.Attributes exposing (class, classList, attribute, value)
+import Html.Attributes exposing (class, classList, attribute, placeholder)
 
 main = Html.program { init = init, view = view, update = update, subscriptions = subscriptions }
 
@@ -26,7 +26,7 @@ update msg model =
 view : Model -> Html Msg
 view model =
     div [] [ div [ class "display" ] [ displayCount model
-                                     , button [ class "increment", onClick Increment ] [ text "+" ]
+                                     , button [ class "increment", onClick Increment ] [ text "+1" ]
                                      , progressDisplay model
                                      , encouragementDisplay model
                                      , span [ class "toggle-modal" ] [ a [ onClick OpenEditGoal ] [ text "change goal" ] ]
@@ -43,9 +43,10 @@ displayModal model =
         ]
         [ div
             [ class "modal-content" ]
-            [ text "The standard recommendation for water is 64 oz or 1800 ml. Akaeight 8 oz glasses. Adjust your goal according to the size of your cup and goals!"
-            , span [ class "close-modal" ] [ a [ onClick CloseEditGoal ] [ text "X" ] ]
-            , input [ value (toString model.goal), onInput ChangeGoal ] [ ]
+            [ span [ class "close-modal" ] [ a [ onClick CloseEditGoal ] [ text "X" ] ]
+            , text "The standard recommendation for water is 64 oz or 1800 ml. Aka eight 8 oz glasses. Adjust your goal according to the size of your cup and goals!"
+            , input [ placeholder (toString model.goal), onInput ChangeGoal ] [ ]
+            , button [ class "ok", onClick CloseEditGoal ] [ text "ok" ]
             ]
         ]
 
