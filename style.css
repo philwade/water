@@ -58,3 +58,24 @@ body {
 .close-modal {
 	float: right;
 }
+
+a:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+button {
+	cursor: pointer;
+}
+
+.toggle-modal a {
+	font-size: 14px;
+	float: right;
+}
+
+button.increment {
+	color: #fff;
+	background-color: #0275d8;
+	border-color: #0275d8;
+	font-size: 20px;
+}
